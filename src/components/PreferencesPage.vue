@@ -140,6 +140,10 @@
         <strong v-t="'actions.hide_watched'" />
         <input id="chkHideWatched" v-model="hideWatched" class="checkbox" type="checkbox" @change="onChange($event)" />
     </label>
+    <label class="pref" for="chkHideShorts">
+        <strong v-t="'actions.hide_shorts'" />
+        <input id="chkHideShorts" v-model="hideShorts" class="checkbox" type="checkbox" @change="onChange($event)" />
+    </label>
     <label class="pref" for="ddlEnabledCodecs">
         <strong v-t="'actions.enabled_codecs'" />
         <select
@@ -418,6 +422,7 @@ export default {
             watchHistory: false,
             searchHistory: false,
             hideWatched: false,
+            hideShorts: false,
             selectedLanguage: "en",
             languages: [
                 { code: "ar", name: "Arabic" },
@@ -563,6 +568,7 @@ export default {
             this.disableLBRY = this.getPreferenceBoolean("disableLBRY", false);
             this.proxyLBRY = this.getPreferenceBoolean("proxyLBRY", false);
             this.hideWatched = this.getPreferenceBoolean("hideWatched", false);
+            this.hideShorts = this.getPreferenceBoolean("hideShorts", false);
             if (this.selectedLanguage != "en") {
                 try {
                     this.CountryMap = await import(`../utils/CountryMaps/${this.selectedLanguage}.json`).then(
@@ -625,6 +631,7 @@ export default {
                 localStorage.setItem("disableLBRY", this.disableLBRY);
                 localStorage.setItem("proxyLBRY", this.proxyLBRY);
                 localStorage.setItem("hideWatched", this.hideWatched);
+                localStorage.setItem("hideShorts", this.hideShorts);
 
                 if (shouldReload) window.location.reload();
             }

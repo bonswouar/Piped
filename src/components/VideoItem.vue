@@ -171,6 +171,16 @@ export default {
             }
         },
         shouldShowVideo() {
+            if (
+                this.getPreferenceBoolean("hideShorts", false) &&
+                (this.item.isShort ||
+                    // NOTE: Hack for uninitialized `isShort` (i.e. Feed page)
+                    this.item.duration < 61 ||
+                    this.item.title.includes("#SHORT"))
+            ) {
+                this.showVideo = false;
+                return;
+            }
             if (!this.isFeed || !this.getPreferenceBoolean("hideWatched", false)) return;
 
             const objectStore = window.db.transaction("watch_history", "readonly").objectStore("watch_history");
